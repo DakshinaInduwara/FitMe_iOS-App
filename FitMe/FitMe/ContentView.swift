@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  FitMe
+//  Health-Tracker
 //
-//  Created by Gairuka Bandara on 2024-10-29.
+//  Created by Gairuka Bandara on 2024-10-22.
 //
 
 import SwiftUI
@@ -13,7 +13,7 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            
+            Text("Hello, world!")
         }
         .padding()
     }

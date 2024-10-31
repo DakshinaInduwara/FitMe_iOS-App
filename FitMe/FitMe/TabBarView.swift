@@ -2,12 +2,13 @@
 //  TabView.swift
 //  Health-Tracker
 //
-//  Created by Dakshina Induwara on 2024-10-24.
+//  Created by Gairuka Bandara on 2024-10-24.
 //
 
 import SwiftUI
 
 struct TabBarView: View {
+    @EnvironmentObject var healthKit: Health
     @State var selectedTab = "Home"
     
     var body: some View {
@@ -17,6 +18,7 @@ struct TabBarView: View {
                 .tabItem{
                     Image(systemName:"house")
                 }
+                .environmentObject(healthKit)
             
             SettingsView()
                 .tag("Content")
