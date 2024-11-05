@@ -25,7 +25,7 @@ struct WorkoutCard: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 48, height: 48)
-                .foregroundColor(.green)
+                .foregroundColor(workout.tinColor)
                 .padding()
                 .background(.gray.opacity(0.3))
                 .cornerRadius(10)
@@ -46,7 +46,7 @@ struct WorkoutCard: View {
                 
             }
         }
-        .padding()
+        .padding(.horizontal)
     }
 }
 
