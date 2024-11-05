@@ -37,4 +37,6 @@ struct TabBarView: View {
 
 #Preview {
     TabBarView()
+        .environmentObject(Health())
 }
+

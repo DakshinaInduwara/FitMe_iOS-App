@@ -26,22 +26,39 @@ class Health: ObservableObject {
     @Published var actions: [String: Action] = [:]
     
     init() {
-        let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount)!
-        let activeEnergy = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
+        // Request authorization for notifications
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if let error = error {
+                print("Notification permission error: \(error.localizedDescription)")
+            } else if !granted {
+                print("Notification permission not granted.")
+            }
+        }
+        
+        // HealthKit types
+        guard let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount),
+              let activeEnergy = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) else {
+            print("Error: Unable to create HealthKit types.")
+            return
+        }
+        
         let HTypes: Set = [stepCount, activeEnergy]
         
         Task {
             do {
                 try await HStore.requestAuthorization(toShare: [], read: HTypes)
             } catch {
-                print("ERROR: Unable to fetch HealthKit Authorization")
+                print("ERROR: Unable to fetch HealthKit Authorization: \(error.localizedDescription)")
             }
         }
     }
     
     // Function to get the step count
     func getSteps() {
-        let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount)!
+        guard let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount) else {
+            print("Error: Unable to create stepCount type")
+            return
+        }
         let period = HKQuery.predicateForSamples(withStart: .start, end: Date(), options: .strictStartDate)
         
         let query = HKStatisticsQuery(quantityType: stepCount, quantitySamplePredicate: period, options: .cumulativeSum) { _, result, error in
@@ -54,7 +71,7 @@ class Health: ObservableObject {
             }
             
             // Fetch the user's goal from UserDefaults
-            let stepGoal = UserDefaults.standard.double(forKey: "stepGoal") // Fetching as Double
+            let stepGoal = UserDefaults.standard.double(forKey: "stepGoal")  // Fetching as Double
             let action = Action(heading: "Steps", subHeading: "Today", icon: "figure.walk", value: steps.formatDouble(), goal: "Goal \(stepGoal.formatDouble())")
             DispatchQueue.main.async {
                 self.actions["steps"] = action
@@ -87,7 +104,10 @@ class Health: ObservableObject {
     
     // Function to get calories burned (active energy)
     func getCalories() {
-        let activeEnergy = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
+        guard let activeEnergy = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) else {
+            print("Error: Unable to create activeEnergy type")
+            return
+        }
         let period = HKQuery.predicateForSamples(withStart: .start, end: Date(), options: .strictStartDate)
         
         let query = HKStatisticsQuery(quantityType: activeEnergy, quantitySamplePredicate: period, options: .cumulativeSum) { _, result, error in
@@ -100,8 +120,8 @@ class Health: ObservableObject {
             }
             
             // Fetch the user's goal from UserDefaults
-            let calorieGoal = UserDefaults.standard.string(forKey: "calorieGoal") ?? "500"
-            let action = Action(heading: "Calories", subHeading: "Today", icon: "flame.fill", value: calories.formatDouble(), goal: "Goal \(calorieGoal)")
+            let calorieGoal = UserDefaults.standard.double(forKey: "calorieGoal") // Fetching as Double
+            let action = Action(heading: "Calories", subHeading: "Today", icon: "flame.fill", value: calories.formatDouble(), goal: "Goal \(calorieGoal.formatDouble())")
             DispatchQueue.main.async {
                 self.actions["calories"] = action
             }
@@ -114,7 +134,10 @@ class Health: ObservableObject {
     
     // Function to get running distance
     func getRunningDistance() {
-        let runningDistance = HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!
+        guard let runningDistance = HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning) else {
+            print("Error: Unable to create runningDistance type")
+            return
+        }
         let period = HKQuery.predicateForSamples(withStart: .start, end: Date(), options: .strictStartDate)
         
         let query = HKStatisticsQuery(quantityType: runningDistance, quantitySamplePredicate: period, options: .cumulativeSum) { _, result, error in
@@ -127,8 +150,8 @@ class Health: ObservableObject {
             }
             
             // Fetch the user's goal from UserDefaults
-            let runningGoal = UserDefaults.standard.string(forKey: "runningGoal") ?? "3"
-            let action = Action(heading: "Running", subHeading: "Today", icon: "figure.run", value: distance.formatDouble(), goal: "Goal \(runningGoal) km")
+            let runningGoal = UserDefaults.standard.double(forKey: "runningGoal") // Fetching as Double
+            let action = Action(heading: "Running", subHeading: "Today", icon: "figure.run", value: distance.formatDouble(), goal: "Goal \(runningGoal.formatDouble()) km")
             DispatchQueue.main.async {
                 self.actions["running"] = action
             }
