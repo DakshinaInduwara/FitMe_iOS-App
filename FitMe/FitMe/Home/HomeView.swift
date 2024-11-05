@@ -6,6 +6,15 @@ struct HomeView: View {
     @State var stand: Int = 8
     @EnvironmentObject var healthKit: Health
     
+    var mockActivites = [
+        Activity(id: 0, title: "Daily steps", subtitle: "Goal 12,000", image: "figure.walk", tinColor: .green, amount: "9812"),
+        Activity(id: 1, title: "Daily steps", subtitle: "Goal 12,000", image: "figure.walk", tinColor: .red, amount: "9812"),
+        Activity(id: 2, title: "Daily steps", subtitle: "Goal 12,000", image: "figure.run", tinColor: .blue, amount: "9812"),
+        Activity(id: 3, title: "Daily steps", subtitle: "Goal 12,000", image: "figure.walk", tinColor: .purple, amount: "9812"),
+        Activity(id: 4, title: "Daily steps", subtitle: "Goal 12,000", image: "figure.run", tinColor: .yellow, amount: "9812"),
+        Activity(id: 5, title: "Daily steps", subtitle: "Goal 12,000", image: "figure.run", tinColor: .orange, amount: "9812")
+    ]
+    
     var body: some View {
         ScrollView(showsIndicators: false){
             VStack(alignment: .leading) {
@@ -72,6 +81,13 @@ struct HomeView: View {
                             .foregroundColor(.white)
                             .background(Color.blue)
                             .cornerRadius(20)
+                    }
+                }
+                .padding(.horizontal)
+                
+                LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)){
+                    ForEach(mockActivites, id: \.id) { activity in
+                            ActivityCard(activity: activity)
                     }
                 }
                 .padding(.horizontal)
