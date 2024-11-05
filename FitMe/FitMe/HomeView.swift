@@ -8,7 +8,7 @@ struct HomeView: View {
     
     var body: some View {
         ScrollView(showsIndicators: false){
-            VStack {
+            VStack(alignment: .leading) {
                 Text("Home")
                     .font(.largeTitle)
                     .padding()
@@ -59,6 +59,22 @@ struct HomeView: View {
                     Spacer()
                 }
                 .padding()
+                
+                HStack {
+                    Text("Fitness Activity")
+                        .font(.title2)
+                    Spacer()
+                    Button {
+                        print("show more")
+                    } label: {
+                        Text("Show more")
+                            .padding(.all, 10)
+                            .foregroundColor(.white)
+                            .background(Color.blue)
+                            .cornerRadius(20)
+                    }
+                }
+                .padding(.horizontal)
             }
         }
         
