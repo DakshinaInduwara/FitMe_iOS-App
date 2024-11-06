@@ -39,6 +39,7 @@ class HomeViewModel: ObservableObject {
                 fetchTodayExerciseTime()
                 fetchTodayStandHours()
                 fetchTodaySteps()
+                fetchCurrentWeekActivities()
 
             } catch{
                 print(error.localizedDescription)
@@ -92,6 +93,19 @@ class HomeViewModel: ObservableObject {
             case .success(let activity):
                 DispatchQueue.main.async {
                     self.activities.append(activity)
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
+    }
+    
+    func fetchCurrentWeekActivities(){
+        healthManager.fetchCurrentWeekWorkoutStats { result in
+            switch result {
+            case .success(let activities):
+                DispatchQueue.main.async {
+                    self.activities.append(contentsOf: activities)
                 }
             case .failure(let failure):
                 print(failure.localizedDescription)

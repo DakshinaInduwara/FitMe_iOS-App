@@ -50,8 +50,9 @@ class HealthManager{
         let exercise = HKQuantityType(.appleExerciseTime)
         let stand = HKCategoryType(.appleStandHour)
         let steps = HKQuantityType(.stepCount)
+        let workouts = HKSampleType.workoutType()
         
-        let healthTypes: Set = [calories, exercise, stand, steps]
+        let healthTypes: Set = [calories, exercise, stand, steps, workouts]
         try await healthStore.requestAuthorization(toShare: [], read: healthTypes)
     }
     
@@ -149,16 +150,17 @@ class HealthManager{
             }
             completion(.success(generateActivitiesFromDurations(running: runningCount, strength: strengthCount, soccer: soccerCount, basketball: basketballCount, stairs: stairsCount, kickboxing: kickboxingCount)))
         }
+        healthStore.execute(query)
     }
     
     func generateActivitiesFromDurations(running: Int, strength: Int, soccer: Int, basketball: Int, stairs: Int, kickboxing: Int) -> [Activity] {
         return [
-            Activity(title: "Running", subtitle: "This week", image: "figure.run", tinColor: .green, amount: "\(running)"),
-            Activity(title: "Strength Training", subtitle: "This week", image: "dumbbell", tinColor: .green, amount: "\(strength)"),
-            Activity(title: "Soccer", subtitle: "This week", image: "figure.soccer", tinColor: .green, amount: "\(soccer)"),
-            Activity(title: "Basketball", subtitle: "This week", image: "figure.basketball", tinColor: .green, amount: "\(basketball)"),
-            Activity(title: "Stairstepper", subtitle: "This week", image: "figure.stairs", tinColor: .green, amount: "\(stairs)"),
-            Activity(title: "Kickboxking", subtitle: "This week", image: "figure.kickboxking", tinColor: .green, amount: "\(kickboxing)"),
+            Activity(title: "Running", subtitle: "This week", image: "figure.run", tinColor: .green, amount: "\(running) mins"),
+            Activity(title: "Strength Training", subtitle: "This week", image: "dumbbell", tinColor: .green, amount: "\(strength) mins"),
+            Activity(title: "Soccer", subtitle: "This week", image: "figure.soccer", tinColor: .green, amount: "\(soccer) mins"),
+            Activity(title: "Basketball", subtitle: "This week", image: "figure.basketball", tinColor: .green, amount: "\(basketball) mins"),
+            Activity(title: "Stairstepper", subtitle: "This week", image: "figure.stairs", tinColor: .green, amount: "\(stairs) mins"),
+            Activity(title: "Kickboxking", subtitle: "This week", image: "figure.kickboxking", tinColor: .green, amount: "\(kickboxing) mins"),
         ]
     }
 }
