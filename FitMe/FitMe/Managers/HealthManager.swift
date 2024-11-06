@@ -163,4 +163,13 @@ class HealthManager{
             Activity(title: "Kickboxking", subtitle: "This week", image: "figure.kickboxking", tinColor: .green, amount: "\(kickboxing) mins"),
         ]
     }
+    
+    // Recent Workouts
+    func fetchWorkoutForMonth(month: Date, completion: @escaping (Result<[Workout], Error>) -> Void) {
+        let workouts = HKSampleType.workoutType()
+        let predicate = HKQuery.predicateForSamples(withStart: .startOFWeek, end: Date())
+    }
+    func fetchMonthStartAndEndDate(){
+        
+    }
 }
