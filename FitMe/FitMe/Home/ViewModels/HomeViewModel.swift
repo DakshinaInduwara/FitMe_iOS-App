@@ -13,6 +13,7 @@ class HomeViewModel: ObservableObject {
     @Published var calories: Int = 0
     @Published var exercise: Int = 0
     @Published var stand: Int = 0
+    @Published var activities: [Activity] = []
     
     var mockActivites = [
         Activity(id: 0, title: "Daily steps", subtitle: "Goal 12,000", image: "figure.walk", tinColor: .green, amount: "9812"),
@@ -37,6 +38,7 @@ class HomeViewModel: ObservableObject {
                 fetchTodayCalories()
                 fetchTodayExerciseTime()
                 fetchTodayStandHours()
+                fetchTodaySteps()
 
             } catch{
                 print(error.localizedDescription)
@@ -51,6 +53,8 @@ class HomeViewModel: ObservableObject {
             case .success(let calories):
                 DispatchQueue.main.async {
                     self.calories = Int(calories)
+                    let activity = Activity(id: 1, title: "Calories Burned", subtitle: "todayflame", image: "flame", tinColor: .red, amount: calories.formattedNumberString())
+                    self.activities.append(activity)
                 }
             case .failure(let failure):
                 print(failure.localizedDescription)
@@ -78,6 +82,19 @@ class HomeViewModel: ObservableObject {
                     }
                 case .failure(let failure):
                     print(failure.localizedDescription)
+            }
+        }
+    }
+    //Fitness Activity
+    func fetchTodaySteps(){
+        healthManager.fetchTodaySteps { result in
+            switch result {
+            case .success(let activity):
+                DispatchQueue.main.async {
+                    self.activities.append(activity)
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
             }
         }
     }

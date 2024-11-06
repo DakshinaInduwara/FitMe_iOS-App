@@ -15,6 +15,16 @@ extension Date {
     }
 }
 
+extension Double {
+    func formattedNumberString() -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 0
+        
+        return formatter.string(from: NSNumber(value: self)) ?? "0"
+    }
+}
+
 class HealthManager{
     
     static let shared = HealthManager()
@@ -33,8 +43,9 @@ class HealthManager{
         let calories = HKQuantityType(.activeEnergyBurned)
         let exercise = HKQuantityType(.appleExerciseTime)
         let stand = HKCategoryType(.appleStandHour)
+        let steps = HKQuantityType(.stepCount)
         
-        let healthTypes: Set = [calories, exercise, stand]
+        let healthTypes: Set = [calories, exercise, stand, steps]
         try await healthStore.requestAuthorization(toShare: [], read: healthTypes)
     }
     
@@ -81,4 +92,18 @@ class HealthManager{
         
     }
     
+    //Fitness Activity
+    func fetchTodaySteps(completion: @escaping (Result<Activity, Error>) -> Void){
+        let steps = HKQuantityType(.stepCount)
+        let predicate = HKQuery.predicateForSamples(withStart: .startOFDay, end: Date())
+        let query = HKStatisticsQuery(quantityType: steps, quantitySamplePredicate: predicate) { _, results, error in guard let quantity = results?.sumQuantity(), error == nil else {
+            completion(.failure(NSError()))
+            return
+        }
+            let steps = quantity.doubleValue(for: .count())
+            let activity = Activity(id: 0, title: "Today Steps", subtitle: "Goal: 800", image: "figure.walk", tinColor: .green, amount: steps.formattedNumberString())
+            completion(.success(activity))
+        }
+        healthStore.execute(query)
+    }
 }

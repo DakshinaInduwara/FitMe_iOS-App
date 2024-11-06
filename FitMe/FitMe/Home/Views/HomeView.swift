@@ -79,9 +79,16 @@ struct HomeView: View {
                     }
                     .padding(.horizontal)
                     
-                    LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)){
-                        ForEach(viewModel.mockActivites, id: \.id) { activity in
-                            ActivityCard(activity: activity)
+                    if !viewModel.activities.isEmpty {
+                        LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)) {
+                            ForEach(viewModel.activities, id: \.id) { activity in
+                                ActivityCard(activity: activity)
+                            }
+                        }
+                    }
+//                    LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)){
+//                        ForEach(viewModel.mockActivites, id: \.id) { activity in
+//                            ActivityCard(activity: activity)
                         }
                     }
                     .padding(.horizontal)
@@ -141,8 +148,8 @@ struct HomeView: View {
 //            healthKit.getCalories()
 //            healthKit.getRunningDistance()
 //        }
-    }
-}
+
+
 
 #Preview {
     HomeView()
