@@ -14,8 +14,12 @@ struct DailyStepModel: Identifiable {
     let count: Double
 }
 
-enum ChartOptions {
-    
+enum ChartOptions: String, CaseIterable {
+    case oneWeek = "1W"
+    case oneMonth = "1M"
+    case threeMonths = "3M"
+    case yearToDate = "YTD"
+    case oneYear = "1Y"
 }
 
 class ChartViewModel: ObservableObject {
@@ -32,6 +36,7 @@ class ChartViewModel: ObservableObject {
 
 struct ChartsView: View {
     @StateObject var viewModel = ChartViewModel()
+    @State var selectedChart : ChartOptions = .oneWeek
     var body: some View {
         VStack{
             Text("Charts")
@@ -48,6 +53,20 @@ struct ChartsView: View {
             .foregroundColor(.green)
             .frame(maxHeight: 350)
             .padding(.horizontal)
+            
+            HStack{
+                ForEach(ChartOptions.allCases, id:\.rawValue) { option in
+                    Button(option.rawValue) {
+                        withAnimation {
+                            selectedChart = option
+                        }
+                    }
+                    .padding()
+                    .foregroundColor(selectedChart == option ? .white : .green)
+                    .background(selectedChart == option ? .green : .clear)
+                    .cornerRadius(10)
+                }
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
