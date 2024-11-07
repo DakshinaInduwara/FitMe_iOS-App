@@ -95,11 +95,11 @@ class ChartViewModel: ObservableObject {
     @Published var threeMonthAverage = 0
     @Published var threeMonthtotal = 0
     
-    @Published var ytdAverage = 0
-    @Published var ytdTotal = 0
+    @Published var ytdAverage = 432456
+    @Published var ytdTotal = 657477
     
-    @Published var oneYearAverage = 0
-    @Published var oneYearTotal = 0
+    @Published var oneYearAverage = 623126
+    @Published var oneYearTotal = 989341
     
     init() {
         let mockOneMonth = mockDataForDays(days: 30)
@@ -155,7 +155,7 @@ struct ChartsView: View {
                     }
                 case .threeMonths:
                     VStack {
-                        ChartDataView(average: viewModel.threeMonthAverage, total: viewModel.OneWeekTotal)
+                        ChartDataView(average: viewModel.threeMonthAverage, total: viewModel.threeMonthtotal)
                         Chart {
                             ForEach(viewModel.mockThreeMonthData) { data in
                                 BarMark(x: .value(data.date.formatted(), data.date, unit: .day), y: .value("Steps",data.count))
