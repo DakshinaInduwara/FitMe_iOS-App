@@ -45,9 +45,26 @@ struct ChartsView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
             
-            Chart {
-                ForEach(viewModel.mockChartData) { data in
-                    BarMark(x: .value(data.date.formatted(), data.date, unit: .day), y: .value("Steps",data.count))
+            ZStack {
+                switch selectedChart {
+                case .oneWeek:
+                    Chart {
+                        ForEach(viewModel.mockChartData) { data in
+                            BarMark(x: .value(data.date.formatted(), data.date, unit: .day), y: .value("Steps",data.count))
+                        }
+                    }
+                case .oneMonth:
+                    EmptyView()
+                case .threeMonths:
+                    EmptyView()
+                case .yearToDate:
+                    EmptyView()
+                case .oneYear:
+                    Chart {
+                        ForEach(viewModel.mockChartData) { data in
+                            BarMark(x: .value(data.date.formatted(), data.date, unit: .day), y: .value("Steps",data.count))
+                        }
+                    }
                 }
             }
             .foregroundColor(.green)
