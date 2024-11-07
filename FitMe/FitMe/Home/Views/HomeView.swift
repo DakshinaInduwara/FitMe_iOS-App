@@ -17,7 +17,7 @@ struct HomeView: View {
                         .bold()
                     HStack {
                         Spacer()
-                            
+                        
                         VStack {
                             VStack(alignment: .leading, spacing: 8){
                                 Text("Calories")
@@ -61,7 +61,7 @@ struct HomeView: View {
                         .padding(.horizontal)
                         Spacer()
                     }
-                    .padding()
+                    .padding(.horizontal)
                     
                     HStack {
                         Text("Fitness Activity")
@@ -86,13 +86,15 @@ struct HomeView: View {
                             }
                         }
                     }
-//                    LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)){
-//                        ForEach(viewModel.mockActivites, id: \.id) { activity in
-//                            ActivityCard(activity: activity)
-                        }
-                    }
-                    .padding(.horizontal)
-                    
+                    //                    LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)){
+                    //                        ForEach(viewModel.mockActivites, id: \.id) { activity in
+                    //                            ActivityCard(activity: activity)
+                }
+            }
+            .padding(.horizontal)
+        
+            ScrollView(showsIndicators: false){
+                VStack(alignment: .leading) {
                     HStack {
                         Text("Recent Workouts")
                             .font(.title2)
@@ -110,12 +112,15 @@ struct HomeView: View {
                     }
                     .padding(.horizontal)
                     .padding(.top)
+                    //ScrollView(showsIndicators: false){
                     LazyVStack {
                         ForEach(viewModel.workouts, id: \.id) { workout in
                             WorkoutCard(workout: workout)
                         }
                     }
-                    .padding(.bottom)
+                }
+                .padding(.bottom)
+            }
                 }
             }
         }

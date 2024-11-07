@@ -24,34 +24,46 @@ class Health: ObservableObject {
     let HStore = HKHealthStore()
     
     @Published var actions: [String: Action] = [:]
-    
     init() {
-        // Request authorization for notifications
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if let error = error {
-                print("Notification permission error: \(error.localizedDescription)")
-            } else if !granted {
-                print("Notification permission not granted.")
-            }
-        }
-        
-        // HealthKit types
-        guard let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount),
-              let activeEnergy = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) else {
-            print("Error: Unable to create HealthKit types.")
-            return
-        }
-        
+        let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount)!
+        let activeEnergy = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
         let HTypes: Set = [stepCount, activeEnergy]
         
         Task {
             do {
                 try await HStore.requestAuthorization(toShare: [], read: HTypes)
             } catch {
-                print("ERROR: Unable to fetch HealthKit Authorization: \(error.localizedDescription)")
+                print("ERROR: Unable to fetch HealthKit Authorization")
             }
         }
     }
+//    init() {
+//        // Request authorization for notifications
+//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+//            if let error = error {
+//                print("Notification permission error: \(error.localizedDescription)")
+//            } else if !granted {
+//                print("Notification permission not granted.")
+//            }
+//        }
+//        
+//        // HealthKit types
+//        guard let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount),
+//              let activeEnergy = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) else {
+//            print("Error: Unable to create HealthKit types.")
+//            return
+//        }
+//        
+//        let HTypes: Set = [stepCount, activeEnergy]
+//        
+//        Task {
+//            do {
+//                try await HStore.requestAuthorization(toShare: [], read: HTypes)
+//            } catch {
+//                print("ERROR: Unable to fetch HealthKit Authorization: \(error.localizedDescription)")
+//            }
+//        }
+//    }
     
     // Function to get the step count
     func getSteps() {

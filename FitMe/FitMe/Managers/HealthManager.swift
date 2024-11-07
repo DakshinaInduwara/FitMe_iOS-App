@@ -77,7 +77,7 @@ class HealthManager{
         let predicate = HKQuery.predicateForSamples(withStart: .startOFDay, end: Date())
         let query = HKStatisticsQuery(quantityType: calories, quantitySamplePredicate: predicate) { _, results, error in
             guard let quantity = results?.sumQuantity(), error == nil else {
-            completion(.failure(NSError()))
+            completion(.failure(URLError(.badURL)))
             return
         }
             let calorieCount = quantity.doubleValue(for: .kilocalorie())
@@ -91,7 +91,7 @@ class HealthManager{
         let predicate = HKQuery.predicateForSamples(withStart: .startOFDay, end: Date())
         let query = HKStatisticsQuery(quantityType: exercise, quantitySamplePredicate: predicate) { _, results, error in
             guard let quantity = results?.sumQuantity(), error == nil else {
-            completion(.failure(NSError()))
+            completion(.failure(URLError(.badURL)))
             return
         }
             let exerciseTime = quantity.doubleValue(for: .minute())
@@ -105,7 +105,7 @@ class HealthManager{
         let predicate = HKQuery.predicateForSamples(withStart: .startOFDay, end: Date())
         let query = HKSampleQuery(sampleType: stand, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, results, error in
             guard let samples = results as? [HKCategorySample], error == nil else {
-            completion(.failure(NSError()))
+            completion(.failure(URLError(.badURL)))
             return
         }
             print(samples)
@@ -123,7 +123,7 @@ class HealthManager{
         let predicate = HKQuery.predicateForSamples(withStart: .startOFDay, end: Date())
         let query = HKStatisticsQuery(quantityType: steps, quantitySamplePredicate: predicate) { _, results, error in
             guard let quantity = results?.sumQuantity(), error == nil else {
-            completion(.failure(NSError()))
+            completion(.failure(URLError(.badURL)))
             return
         }
             let steps = quantity.doubleValue(for: .count())
@@ -175,7 +175,7 @@ class HealthManager{
             Activity(title: "Soccer", subtitle: "This week", image: "figure.soccer", tinColor: .green, amount: "\(soccer) mins"),
             Activity(title: "Basketball", subtitle: "This week", image: "figure.basketball", tinColor: .green, amount: "\(basketball) mins"),
             Activity(title: "Stairstepper", subtitle: "This week", image: "figure.stairs", tinColor: .green, amount: "\(stairs) mins"),
-            Activity(title: "Kickboxking", subtitle: "This week", image: "figure.kickboxking", tinColor: .green, amount: "\(kickboxing) mins"),
+            Activity(title: "Kickboxking", subtitle: "This week", image: "figure.kickboxing", tinColor: .green, amount: "\(kickboxing) mins"),
         ]
     }
     

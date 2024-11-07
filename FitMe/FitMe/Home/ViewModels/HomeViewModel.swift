@@ -14,6 +14,7 @@ class HomeViewModel: ObservableObject {
     @Published var exercise: Int = 0
     @Published var stand: Int = 0
     @Published var activities = [Activity]()
+    
     @Published var workouts = [
         Workout(id: 0, title: "Running", image: "figure.run", tinColor: .cyan, duration: "20 mins", date: "Nov 5", calories: "300 kcal"),
         Workout(id: 1, title: "Strength Training", image: "figure.run", tinColor: .red, duration: "30 mins", date: "Nov 2", calories: "240 kcal"),
@@ -125,7 +126,7 @@ class HomeViewModel: ObservableObject {
             switch result {
             case .success(let workouts):
                 DispatchQueue.main.async {
-                    self.workouts = Array(workouts.prefix(4)) 
+                    self.workouts = Array(workouts.prefix(4))
                 }
             case .failure(let failure):
                 print(failure.localizedDescription)

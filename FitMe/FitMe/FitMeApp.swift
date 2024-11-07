@@ -13,7 +13,8 @@ struct FitMeApp: App {
     @StateObject var healthKit = Health()
     
     init() {
-        requestNotificationPermission() // Request notification permission on app launch
+        requestNotificationPermission()
+        // Request notification permission on app launch
     }
 
     var body: some Scene {

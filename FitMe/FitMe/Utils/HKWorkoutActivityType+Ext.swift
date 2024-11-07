@@ -22,7 +22,7 @@ extension HKWorkoutActivityType {
         case .baseball:                     return "Baseball"
         case .basketball:                   return "Basketball"
         case .bowling:                      return "Bowling"
-        case .boxing:                       return "Boxing"
+        case .boxing:                       return "figure.kickboxing"
         case .climbing:                     return "Climbing"
         case .crossTraining:                return "Cross Training"
         case .curling:                      return "Curling"
@@ -104,7 +104,7 @@ extension HKWorkoutActivityType {
 
 
         var image: String {
-            let symbols: String
+            let _: String
             switch self {
             case .americanFootball:             return "American Football"
             case .archery:                      return "Archery"
@@ -113,7 +113,7 @@ extension HKWorkoutActivityType {
             case .baseball:                     return "figure.baseball"
             case .basketball:                   return "figure.basketball"
             case .bowling:                      return "Bowling"
-            case .boxing:                       return "Boxing"
+            case .boxing:                       return "figure.kickboxing"
             case .climbing:                     return "Climbing"
             case .crossTraining:                return "Cross Training"
             case .curling:                      return "Curling"
