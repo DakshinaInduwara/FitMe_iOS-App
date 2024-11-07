@@ -13,7 +13,13 @@ class HomeViewModel: ObservableObject {
     @Published var calories: Int = 0
     @Published var exercise: Int = 0
     @Published var stand: Int = 0
-    @Published var activities: [Activity] = []
+    @Published var activities = [Activity]()
+    @Published var workouts = [
+        Workout(id: 0, title: "Running", image: "figure.run", tinColor: .cyan, duration: "20 mins", date: "Nov 5", calories: "300 kcal"),
+        Workout(id: 1, title: "Strength Training", image: "figure.run", tinColor: .red, duration: "30 mins", date: "Nov 2", calories: "240 kcal"),
+        Workout(id: 2, title: "Walking", image: "figure.run", tinColor: .blue, duration: "23 mins", date: "Nov 4", calories: "522 kcal"),
+        Workout(id: 3, title: "Climbing", image: "figure.run", tinColor: .yellow, duration: "35 mins", date: "Nov 5", calories: "431 kcal")
+    ]
     
     var mockActivites = [
         Activity(title: "Daily steps", subtitle: "Goal 12,000", image: "figure.walk", tinColor: .green, amount: "9812"),
@@ -106,6 +112,20 @@ class HomeViewModel: ObservableObject {
             case .success(let activities):
                 DispatchQueue.main.async {
                     self.activities.append(contentsOf: activities)
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
+    }
+    
+    // Recent Workouts
+    func fetchRecentWorkouts(){
+        healthManager.fetchWorkoutForMonth(month: Date()) { result in
+            switch result {
+            case .success(let workouts):
+                DispatchQueue.main.async {
+                    self.workouts = workouts
                 }
             case .failure(let failure):
                 print(failure.localizedDescription)
