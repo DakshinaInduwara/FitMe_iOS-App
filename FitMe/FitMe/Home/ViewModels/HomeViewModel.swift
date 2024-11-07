@@ -125,7 +125,7 @@ class HomeViewModel: ObservableObject {
             switch result {
             case .success(let workouts):
                 DispatchQueue.main.async {
-                    self.workouts = workouts
+                    self.workouts = Array(workouts.prefix(4)) 
                 }
             case .failure(let failure):
                 print(failure.localizedDescription)
