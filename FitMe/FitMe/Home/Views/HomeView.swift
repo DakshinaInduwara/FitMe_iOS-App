@@ -85,6 +85,31 @@ struct HomeView: View {
                                 ActivityCard(activity: activity)
                             }
                         }
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text("Recent Workouts")
+                                    .font(.title2)
+                                Spacer()
+                                
+                                NavigationLink {
+                                    EmptyView()
+                                } label: {
+                                    Text("Show more")
+                                        .padding(.all, 10)
+                                        .foregroundColor(.white)
+                                        .background(Color.blue)
+                                        .cornerRadius(20)
+                                }
+                            }
+                            .padding(.horizontal)
+                            .padding(.top)
+                            //ScrollView(showsIndicators: false){
+                            LazyVStack {
+                                ForEach(viewModel.workouts, id: \.id) { workout in
+                                    WorkoutCard(workout: workout)
+                                }
+                            }
+                        }
                     }
                     //                    LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)){
                     //                        ForEach(viewModel.mockActivites, id: \.id) { activity in
@@ -92,35 +117,6 @@ struct HomeView: View {
                 }
             }
             .padding(.horizontal)
-        
-            ScrollView(showsIndicators: false){
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text("Recent Workouts")
-                            .font(.title2)
-                        Spacer()
-                        
-                        NavigationLink {
-                            EmptyView()
-                        } label: {
-                            Text("Show more")
-                                .padding(.all, 10)
-                                .foregroundColor(.white)
-                                .background(Color.blue)
-                                .cornerRadius(20)
-                        }
-                    }
-                    .padding(.horizontal)
-                    .padding(.top)
-                    //ScrollView(showsIndicators: false){
-                    LazyVStack {
-                        ForEach(viewModel.workouts, id: \.id) { workout in
-                            WorkoutCard(workout: workout)
-                        }
-                    }
-                }
-                .padding(.bottom)
-            }
                 }
             }
         }
