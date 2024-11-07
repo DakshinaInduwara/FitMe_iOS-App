@@ -218,3 +218,40 @@ class HealthManager{
     }
     
 }
+
+//ChartView Data
+
+extension HealthManager {
+    
+    struct YearChartDataResult {
+        let ytd: [MonthlyStepModel]
+        let oneYear: [MonthlyStepModel]
+    }
+    
+    func fetchYTDAndOneYearData(completion: @escaping (Result<YearChartDataResult, Error>) -> Void) {
+        let steps = HKQuantityType(.stepCount)
+        let calendar = Calendar.current
+        
+        var oneYearMonaths = [MonthlyStepModel]()
+        var ytdMonths = [MonthlyStepModel]()
+        
+        for i in 0...11 {
+            let month = calendar.date(byAdding: .month, value: -i, to: Date()) ?? Date()
+            
+            let (startOfMonth, endOfMonth) = month.fetchMonthStartAndEndDate()
+            let predicate = HKQuery.predicateForSamples(withStart: .startOFDay, end: Date())
+            let query = HKStatisticsQuery(quantityType: steps, quantitySamplePredicate: predicate) { _, results,
+                error in
+                guard let count = results?.sumQuantity(), error == nil else {
+                completion(.failure(URLError(.badURL)))
+                return
+            }
+                if i == 0 {
+                    
+                }
+            
+            }
+            healthStore.execute(query)
+        }
+    }
+}
