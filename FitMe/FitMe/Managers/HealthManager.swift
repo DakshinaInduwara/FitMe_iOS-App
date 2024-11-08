@@ -242,14 +242,22 @@ extension HealthManager {
             let predicate = HKQuery.predicateForSamples(withStart: .startOFDay, end: Date())
             let query = HKStatisticsQuery(quantityType: steps, quantitySamplePredicate: predicate) { _, results,
                 error in
-                guard let count = results?.sumQuantity(), error == nil else {
+                guard let steps = results?.sumQuantity()?.doubleValue(for: .count()), error == nil else {
                 completion(.failure(URLError(.badURL)))
                 return
             }
                 if i == 0 {
-                    
+                    oneYearMonaths.append(MonthlyStepModel(date: month, count: Int(steps)))
+                    ytdMonths.append(MonthlyStepModel(date: month, count: Int(steps)))
+                } else {
+                    oneYearMonaths.append(MonthlyStepModel(date: month, count: Int(steps)))
+                    if calendar.component(.year, from: Date()) == calendar.component(.year, from: month) {
+                        ytdMonths.append(MonthlyStepModel(date: month, count: Int(steps)))
+                    }
                 }
-            
+                if i == 11 {
+                    completion(.success(YearChartDataResult(ytd: ytdMonths, oneYear: oneYearMonaths)))
+                }
             }
             healthStore.execute(query)
         }
