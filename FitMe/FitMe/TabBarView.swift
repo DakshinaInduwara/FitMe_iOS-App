@@ -19,22 +19,22 @@ struct TabBarView: View {
                     Image(systemName:"house")
                 }
                 .environmentObject(healthKit)
-            
-            SettingsView()
-                .tag("Settings")
+            ChartsView()
+                .tag("Charts")
                 .tabItem{
-                    Image(systemName:"gear")
+                    Image(systemName:"chart.line.uptrend.xyaxis")
                 }
             
             ProfileView()
                 .tag("Profile")
                 .tabItem{
-                    Image(systemName:"figure")
+                    Image(systemName:"person.crop.circle")
                 }
-            ChartsView()
-                .tag("Charts")
+            
+            SettingsView()
+                .tag("Settings")
                 .tabItem{
-                    Image(systemName:"chart.line.uptrend.xyaxis")
+                    Image(systemName:"gear")
                 }
         }
     }
