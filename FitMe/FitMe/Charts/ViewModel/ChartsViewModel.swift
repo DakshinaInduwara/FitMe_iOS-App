@@ -90,6 +90,7 @@ class ChartViewModel: ObservableObject {
             self.mockOneMonthdata = mockOneMonth
             self.mockThreeMonthData = mockThreeMonth
         }
+        fetchYTDAndOneYearChartData()
     }
     
     func mockDataForDays(days: Int) -> [DailyStepModel] {
