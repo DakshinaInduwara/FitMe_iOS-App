@@ -31,6 +31,12 @@ struct TabBarView: View {
                     Image(systemName:"person.crop.circle")
                 }
             
+            NotificationView()
+                .tag("Notification")
+                .tabItem{
+                    Image(systemName:"bell.badge")
+                }
+            
             SettingsView()
                 .tag("Settings")
                 .tabItem{
