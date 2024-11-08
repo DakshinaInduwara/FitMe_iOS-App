@@ -8,6 +8,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             Form {
+                Text("Settings")
                 Section(header: Text("Set Your Goals")) {
                     HStack {
                         Image(systemName: "figure.walk")
@@ -45,7 +46,7 @@ struct SettingsView: View {
                     }
                 }
             }
-            .navigationTitle("Settings")
+            //.navigationTitle("Settings")
         }
     }
 

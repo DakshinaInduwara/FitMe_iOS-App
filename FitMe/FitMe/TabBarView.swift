@@ -17,30 +17,42 @@ struct TabBarView: View {
                 .tag("Home")
                 .tabItem{
                     Image(systemName:"house")
+                    Text("Home")
                 }
                 .environmentObject(healthKit)
             ChartsView()
                 .tag("Charts")
                 .tabItem{
                     Image(systemName:"chart.line.uptrend.xyaxis")
+                    Text("Charts")
                 }
             
             ProfileView()
                 .tag("Profile")
                 .tabItem{
                     Image(systemName:"person.crop.circle")
+                    Text("Profile")
                 }
             
             NotificationView()
                 .tag("Notification")
                 .tabItem{
                     Image(systemName:"bell.badge")
+                    Text("Notifications")
+                }
+            
+            LeaderboardView()
+                .tag("Leaderboard")
+                .tabItem{
+                    Image(systemName:"list.bullet")
+                    Text("Leaderboard")
                 }
             
             SettingsView()
                 .tag("Settings")
                 .tabItem{
                     Image(systemName:"gear")
+                    Text("Settings")
                 }
         }
     }
