@@ -8,19 +8,14 @@
 import SwiftUI
 
 struct UserProfileView: View {
-    @AppStorage("profileName") var profileName: String?
-    @AppStorage("profileImage") var profileImage: String?
-    @State private var isEditingName = true
-    @State private var currentName = ""
-    @State private var isEditingImage = false
-    @State private var selectedImage: String?
+    
 
-    var images = ["man","man-2","man-3","man-4","man-5","woman","woman-2","woman-3","woman-4","woman-5","woman-6","woman-7"]
+    @StateObject var viewModel = ProfileViewModel()
     
     var body: some View {
         VStack{
             HStack(spacing: 16){
-                Image(profileImage ?? "man")
+                Image(viewModel.profileImage ?? "man")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100, height: 100)
@@ -31,8 +26,7 @@ struct UserProfileView: View {
                     )
                     .onTapGesture {
                         withAnimation {
-                            isEditingName = false
-                            isEditingImage = true
+                            viewModel.presentEditImage()
                         }
                     }
                 
@@ -41,13 +35,13 @@ struct UserProfileView: View {
                         .font(.largeTitle)
                         .foregroundColor(.gray)
                         .minimumScaleFactor(0.5)
-                    Text(profileName ?? "Name")
+                    Text(viewModel.profileName ?? "Name")
                         .font(.title)
                 }
             }
             
-            if isEditingName {
-                TextField("Name...", text: $currentName)
+            if viewModel.isEditingName {
+                TextField("Name...", text: $viewModel.currentName)
                     .padding()
                     .background(
                         RoundedRectangle(cornerRadius: 10)
@@ -56,17 +50,14 @@ struct UserProfileView: View {
                 HStack {
                     UserProfileEditButton(title: "Cancel", backgroundColor: .gray.opacity(0.1)) {
                         withAnimation {
-                            isEditingName = false
+                            viewModel.dismissEdit()
                         }
                     }
                     .foregroundColor(.red)
                     
                     UserProfileEditButton(title: "Done", backgroundColor: .primary) {
-                        if !currentName.isEmpty {
-                            withAnimation {
-                                profileName = currentName
-                                isEditingName = false
-                            }
+                        if !viewModel.currentName.isEmpty {
+                            viewModel.setNewName()
                         }
                     }
                     .foregroundColor(.white)
@@ -97,13 +88,13 @@ struct UserProfileView: View {
                 }
             }
             
-            if isEditingImage {
+            if viewModel.isEditingImage {
                 ScrollView(.horizontal){
                     HStack{
-                        ForEach(images, id: \.self) { image in
+                        ForEach(viewModel.images, id: \.self) { image in
                             Button {
                                 withAnimation{
-                                    selectedImage = image
+                                    viewModel.didSelectNewImage(name: image)
                                 }
                             } label: {
                                 VStack{
@@ -112,7 +103,7 @@ struct UserProfileView: View {
                                         .scaledToFit()
                                         .frame(width: 100, height: 100)
                                         
-                                    if selectedImage == image {
+                                    if viewModel.selectedImage == image {
                                         Circle()
                                             .frame(width: 16, height: 16)
                                             .foregroundColor(.primary)
@@ -120,7 +111,6 @@ struct UserProfileView: View {
                                 }
                                 .padding()
                             }
-                            .shadow(radius: selectedImage == image ? 5 : 0)
                         }
                     }
                 }
@@ -130,8 +120,7 @@ struct UserProfileView: View {
                 )
                 UserProfileEditButton(title: "Done", backgroundColor: .primary) {
                         withAnimation {
-                            profileImage = selectedImage
-                            isEditingName = false
+                            viewModel.setNewImage()
                         }
                 }
                 .foregroundColor(.white)
@@ -141,14 +130,12 @@ struct UserProfileView: View {
             VStack{
                 FitMeProfileButton(title: "Edit Name", image: "square.and.pencil"){
                     withAnimation {
-                        isEditingName = true
-                        isEditingImage = false
+                        viewModel.prensntEditName()
                     }
                 }
                 FitMeProfileButton(title: "Edit Image", image: "square.and.pencil"){
                     withAnimation {
-                        isEditingName = false
-                        isEditingImage = true
+                        viewModel.presentEditImage()
                     }
                 }
                 
@@ -178,9 +165,9 @@ struct UserProfileView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .onAppear {
-            selectedImage = profileImage
-        }
+//        .onAppear {
+//            selectedImage = profileImage
+//        }
     }
 }
 
