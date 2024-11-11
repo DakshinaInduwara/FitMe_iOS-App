@@ -6,6 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FB8A583A2CE1E00E00DDD32E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FB8A58392CE1E00E00DDD32E /* FirebaseAuth */; };
+		FB8A583C2CE1E00E00DDD32E /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = FB8A583B2CE1E00E00DDD32E /* FirebaseDatabase */; };
+		FB8A583E2CE1E00E00DDD32E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FB8A583D2CE1E00E00DDD32E /* FirebaseFirestore */; };
+		FB8A58402CE1E00E00DDD32E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = FB8A583F2CE1E00E00DDD32E /* FirebaseMessaging */; };
+		FB8A58422CE1E00E00DDD32E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FB8A58412CE1E00E00DDD32E /* FirebaseStorage */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		FBF8462C2CD133BE00262876 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +73,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB8A58402CE1E00E00DDD32E /* FirebaseMessaging in Frameworks */,
+				FB8A583C2CE1E00E00DDD32E /* FirebaseDatabase in Frameworks */,
+				FB8A583A2CE1E00E00DDD32E /* FirebaseAuth in Frameworks */,
+				FB8A58422CE1E00E00DDD32E /* FirebaseStorage in Frameworks */,
+				FB8A583E2CE1E00E00DDD32E /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +138,11 @@
 			);
 			name = FitMe;
 			packageProductDependencies = (
+				FB8A58392CE1E00E00DDD32E /* FirebaseAuth */,
+				FB8A583B2CE1E00E00DDD32E /* FirebaseDatabase */,
+				FB8A583D2CE1E00E00DDD32E /* FirebaseFirestore */,
+				FB8A583F2CE1E00E00DDD32E /* FirebaseMessaging */,
+				FB8A58412CE1E00E00DDD32E /* FirebaseStorage */,
 			);
 			productName = FitMe;
 			productReference = FBF8461B2CD133BC00262876 /* FitMe.app */;
@@ -208,6 +226,9 @@
 			);
 			mainGroup = FBF846122CD133BC00262876;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FBF8461C2CD133BC00262876 /* Products */;
 			projectDirPath = "";
@@ -578,6 +599,45 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FB8A58392CE1E00E00DDD32E /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		FB8A583B2CE1E00E00DDD32E /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		FB8A583D2CE1E00E00DDD32E /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		FB8A583F2CE1E00E00DDD32E /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		FB8A58412CE1E00E00DDD32E /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FBF846132CD133BC00262876 /* Project object */;
 }
