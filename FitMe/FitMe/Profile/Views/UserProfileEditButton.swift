@@ -19,7 +19,7 @@ struct UserProfileEditButton: View {
             Text(title)
                 .padding()
                 .frame(maxWidth: 200)
-                .foregroundColor(.red)
+                .foregroundColor(.blue)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .fill(backgroundColor)
