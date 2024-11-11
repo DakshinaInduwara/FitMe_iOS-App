@@ -12,6 +12,7 @@ struct WorkoutsView: View {
     @EnvironmentObject var healthKit: Health
     
     var body: some View {
+        
         NavigationStack {
             ScrollView(showsIndicators: false){
                 VStack(alignment: .leading) {
@@ -19,6 +20,41 @@ struct WorkoutsView: View {
                         .font(.largeTitle)
                         .padding()
                         .bold()
+        
+        VStack {
+            HStack {
+                Spacer()
+                Button {
+                    
+                } label: {
+                    Image(systemName: "arrowshape.left.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 32, height: 32)
+                }
+                
+                Spacer()
+
+                Text("November 2024")
+                    .font(.title)
+                
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "arrowshape.right.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 32, height: 32)
+                }
+                Spacer()
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .padding()
+        
+        
                     
                     if !viewModel.activities.isEmpty {
                         VStack(alignment: .leading) {
