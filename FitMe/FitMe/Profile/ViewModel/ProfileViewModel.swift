@@ -8,7 +8,7 @@
 import Foundation
 
 class ProfileViewModel: ObservableObject {
-    @Published var isEditingName = true
+    @Published var isEditingName = false
     @Published var currentName = ""
     @Published var profileName:  String? = UserDefaults.standard.string(forKey: "profileName")
     
