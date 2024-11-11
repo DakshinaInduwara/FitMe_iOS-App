@@ -129,30 +129,12 @@ struct UserProfileView: View {
                         .fill(.gray.opacity(0.15))
                 )
                 UserProfileEditButton(title: "Done", backgroundColor: .primary) {
-                    if !currentName.isEmpty {
                         withAnimation {
-                            profileName = currentName
+                            profileImage = selectedImage
                             isEditingName = false
                         }
-                    }
                 }
                 .foregroundColor(.white)
-//                
-//                Button{
-//                    withAnimation {
-//                        profileImage = selectedImage
-//                        isEditingImage = false
-//                    }
-//                } label: {
-//                    Text("Done")
-//                        .padding()
-//                        .frame(maxWidth: 200)
-//                        .foregroundColor(.white)
-//                        .background(
-//                            RoundedRectangle(cornerRadius: 10)
-//                                .fill(.black)
-//                        )
-//                }
                 .padding(.bottom)
             }
             
