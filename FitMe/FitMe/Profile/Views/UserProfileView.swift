@@ -8,10 +8,17 @@
 import SwiftUI
 
 struct UserProfileView: View {
+    @AppStorage("profileName") var profileName: String?
+    @AppStorage("profileImage") var profileImage: String?
+    @State private var isEditingImage = true
+    @State private var selectedImage: String?
+
+    var images = ["man","man-2","man-3","man-4","man-5","woman","woman-2","woman-3","woman-4","woman-5","woman-6","woman-7"]
+    
     var body: some View {
         VStack{
             HStack(spacing: 16){
-                Image("man")
+                Image(profileImage ?? "man")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100, height: 100)
@@ -20,13 +27,66 @@ struct UserProfileView: View {
                         RoundedRectangle(cornerRadius: 10)
                             .foregroundColor(.gray.opacity(0.25))
                     )
+                    .onTapGesture {
+                        isEditingImage = true
+                    }
+                
                 VStack(alignment: .leading) {
                     Text("Good morning")
                         .font(.largeTitle)
                         .foregroundColor(.gray)
-                    Text("Name")
+                    Text(profileName ?? "Name")
                         .font(.title)
                 }
+            }
+            
+            if isEditingImage {
+                ScrollView(.horizontal){
+                    HStack{
+                        ForEach(images, id: \.self) { image in
+                            Button {
+                                withAnimation{
+                                    selectedImage = image
+                                }
+                            } label: {
+                                VStack{
+                                    Image(image)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 100)
+                                        
+                                    if selectedImage == image {
+                                        Circle()
+                                            .frame(width: 16, height: 16)
+                                            .foregroundColor(.primary)
+                                    }
+                                }
+                                .padding()
+                            }
+                            .shadow(radius: selectedImage == image ? 5 : 0)
+                        }
+                    }
+                }
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.gray.opacity(0.15))
+                )
+                Button{
+                    withAnimation {
+                        profileImage = selectedImage
+                        isEditingImage = false
+                    }
+                } label: {
+                    Text("Done")
+                        .padding()
+                        .frame(maxWidth: 200)
+                        .foregroundColor(.white)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(.black)
+                        )
+                }
+                .padding(.bottom)
             }
             
             VStack{
@@ -35,7 +95,7 @@ struct UserProfileView: View {
                 }
                 
                 FitMeProfileButton(title: "Edit Image", image: "square.and.pencil"){
-                    print("image")
+                    isEditingImage = true
                 }
             }
             .background(
@@ -63,6 +123,9 @@ struct UserProfileView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .onAppear {
+            selectedImage = profileImage
+        }
     }
 }
 
