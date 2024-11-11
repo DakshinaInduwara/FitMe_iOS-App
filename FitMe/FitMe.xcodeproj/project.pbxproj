@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB843EE72CE2A7AF009DF6E5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FB843EE62CE2A7AF009DF6E5 /* FirebaseAnalytics */; };
+		FB843EE92CE2A7AF009DF6E5 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FB843EE82CE2A7AF009DF6E5 /* FirebaseCore */; };
+		FB843EEB2CE2A7AF009DF6E5 /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = FB843EEA2CE2A7AF009DF6E5 /* FirebaseInAppMessaging-Beta */; };
+		FB843EED2CE2A7AF009DF6E5 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = FB843EEC2CE2A7AF009DF6E5 /* FirebasePerformance */; };
 		FB8A583A2CE1E00E00DDD32E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FB8A58392CE1E00E00DDD32E /* FirebaseAuth */; };
 		FB8A583C2CE1E00E00DDD32E /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = FB8A583B2CE1E00E00DDD32E /* FirebaseDatabase */; };
 		FB8A583E2CE1E00E00DDD32E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FB8A583D2CE1E00E00DDD32E /* FirebaseFirestore */; };
@@ -75,7 +79,11 @@
 			files = (
 				FB8A58402CE1E00E00DDD32E /* FirebaseMessaging in Frameworks */,
 				FB8A583C2CE1E00E00DDD32E /* FirebaseDatabase in Frameworks */,
+				FB843EED2CE2A7AF009DF6E5 /* FirebasePerformance in Frameworks */,
+				FB843EE72CE2A7AF009DF6E5 /* FirebaseAnalytics in Frameworks */,
+				FB843EEB2CE2A7AF009DF6E5 /* FirebaseInAppMessaging-Beta in Frameworks */,
 				FB8A583A2CE1E00E00DDD32E /* FirebaseAuth in Frameworks */,
+				FB843EE92CE2A7AF009DF6E5 /* FirebaseCore in Frameworks */,
 				FB8A58422CE1E00E00DDD32E /* FirebaseStorage in Frameworks */,
 				FB8A583E2CE1E00E00DDD32E /* FirebaseFirestore in Frameworks */,
 			);
@@ -143,6 +151,10 @@
 				FB8A583D2CE1E00E00DDD32E /* FirebaseFirestore */,
 				FB8A583F2CE1E00E00DDD32E /* FirebaseMessaging */,
 				FB8A58412CE1E00E00DDD32E /* FirebaseStorage */,
+				FB843EE62CE2A7AF009DF6E5 /* FirebaseAnalytics */,
+				FB843EE82CE2A7AF009DF6E5 /* FirebaseCore */,
+				FB843EEA2CE2A7AF009DF6E5 /* FirebaseInAppMessaging-Beta */,
+				FB843EEC2CE2A7AF009DF6E5 /* FirebasePerformance */,
 			);
 			productName = FitMe;
 			productReference = FBF8461B2CD133BC00262876 /* FitMe.app */;
@@ -614,6 +626,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FB843EE62CE2A7AF009DF6E5 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		FB843EE82CE2A7AF009DF6E5 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		FB843EEA2CE2A7AF009DF6E5 /* FirebaseInAppMessaging-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseInAppMessaging-Beta";
+		};
+		FB843EEC2CE2A7AF009DF6E5 /* FirebasePerformance */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebasePerformance;
+		};
 		FB8A58392CE1E00E00DDD32E /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
