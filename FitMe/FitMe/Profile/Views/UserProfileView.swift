@@ -10,7 +10,9 @@ import SwiftUI
 struct UserProfileView: View {
     @AppStorage("profileName") var profileName: String?
     @AppStorage("profileImage") var profileImage: String?
-    @State private var isEditingImage = true
+    @State private var isEditingName = true
+    @State private var currentName = ""
+    @State private var isEditingImage = false
     @State private var selectedImage: String?
 
     var images = ["man","man-2","man-3","man-4","man-5","woman","woman-2","woman-3","woman-4","woman-5","woman-6","woman-7"]
@@ -37,6 +39,41 @@ struct UserProfileView: View {
                         .foregroundColor(.gray)
                     Text(profileName ?? "Name")
                         .font(.title)
+                }
+            }
+            
+            if isEditingName {
+                TextField("name", text: $currentName)
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke()
+                    )
+                HStack {
+                    Button {
+                        print("cancel")
+                    } label: {
+                        Text("Cancel")
+                            .padding()
+                            .frame(maxWidth: 200)
+                            .foregroundColor(.red)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.gray.opacity(0.1))
+                            )
+                    }
+                    Button {
+                        print("done")
+                    } label: {
+                        Text("Done")
+                            .padding()
+                            .frame(maxWidth: 200)
+                            .foregroundColor(.white)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.black)
+                            )
+                    }
                 }
             }
             
