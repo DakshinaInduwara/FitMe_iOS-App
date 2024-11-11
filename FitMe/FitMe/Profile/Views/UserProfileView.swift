@@ -43,7 +43,7 @@ struct UserProfileView: View {
             }
             
             if isEditingName {
-                TextField("name", text: $currentName)
+                TextField("Name...", text: $currentName)
                     .padding()
                     .background(
                         RoundedRectangle(cornerRadius: 10)
@@ -51,7 +51,7 @@ struct UserProfileView: View {
                     )
                 HStack {
                     Button {
-                        print("cancel")
+                        isEditingName = false
                     } label: {
                         Text("Cancel")
                             .padding()
@@ -63,7 +63,12 @@ struct UserProfileView: View {
                             )
                     }
                     Button {
-                        print("done")
+                        if !currentName.isEmpty {
+                            withAnimation {
+                                profileName = currentName
+                                isEditingName = false
+                            }
+                        }
                     } label: {
                         Text("Done")
                             .padding()
@@ -128,7 +133,7 @@ struct UserProfileView: View {
             
             VStack{
                 FitMeProfileButton(title: "Edit Name", image: "square.and.pencil"){
-                    print("name")
+                    isEditingName = true
                 }
                 
                 FitMeProfileButton(title: "Edit Image", image: "square.and.pencil"){

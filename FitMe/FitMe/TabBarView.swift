@@ -27,7 +27,7 @@ struct TabBarView: View {
                     Text("Charts")
                 }
             
-            ProfileView()
+            UserProfileView()
                 .tag("Profile")
                 .tabItem{
                     Image(systemName:"person.crop.circle")
