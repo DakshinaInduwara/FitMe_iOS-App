@@ -92,7 +92,7 @@ struct HomeView: View {
                                 Spacer()
                                 
                                 NavigationLink {
-                                    EmptyView()
+                                    WorkoutsView()
                                 } label: {
                                     Text("Show more")
                                         .padding(.all, 10)

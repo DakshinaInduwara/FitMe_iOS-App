@@ -146,16 +146,35 @@ struct UserProfileView: View {
                 
                 VStack{
                     FitMeProfileButton(title: "Contact Us", image: "envelope"){
-                        print("contact")
+                        viewModel.presentEmailApp()
                     }
                     
-                    FitMeProfileButton(title: "Privacy Policy", image: "document"){
-                        print("privacy")
-                    }
-                    FitMeProfileButton(title: "Terms of Services", image: "document.badge.arrow.up"){
-                        print("terms")
+//                    FitMeProfileButton(title: "Privacy Policy", image: "document"){
+//                        print("privacy")
+//                    }
+//                    FitMeProfileButton(title: "Terms of Services", image: "document.badge.arrow.up"){
+//                        print("terms")
+//                    }
+                    
+                    Link(destination: URL(string: "https://github.com/DakshinaInduwara/FitMe_iOS-App/blob/main/Privacy.md")!) {
+                        HStack{
+                            Image(systemName: "doc")
+                            Text("Privacy Policy")
+                        }
+                        .foregroundColor(.primary)
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     
+                    Link(destination: URL(string: "https://github.com/DakshinaInduwara/FitMe_iOS-App/blob/main/Terms.md")!) {
+                        HStack{
+                            Image(systemName: "doc")
+                            Text("Terms & Conditions")
+                        }
+                        .foregroundColor(.primary)
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                 }
             }
             .background(
