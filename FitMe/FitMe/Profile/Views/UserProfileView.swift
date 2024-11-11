@@ -30,13 +30,17 @@ struct UserProfileView: View {
                             .foregroundColor(.gray.opacity(0.25))
                     )
                     .onTapGesture {
-                        isEditingImage = true
+                        withAnimation {
+                            isEditingName = false
+                            isEditingImage = true
+                        }
                     }
                 
                 VStack(alignment: .leading) {
                     Text("Good morning")
                         .font(.largeTitle)
                         .foregroundColor(.gray)
+                        .minimumScaleFactor(0.5)
                     Text(profileName ?? "Name")
                         .font(.title)
                 }
@@ -50,35 +54,46 @@ struct UserProfileView: View {
                             .stroke()
                     )
                 HStack {
-                    Button {
-                        isEditingName = false
-                    } label: {
-                        Text("Cancel")
-                            .padding()
-                            .frame(maxWidth: 200)
-                            .foregroundColor(.red)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(.gray.opacity(0.1))
-                            )
+                    UserProfileEditButton(title: "Cancel", backgroundColor: .gray.opacity(0.1)) {
+                        withAnimation {
+                            isEditingName = false
+                        }
                     }
-                    Button {
+                    .foregroundColor(.red)
+                    
+                    UserProfileEditButton(title: "Done", backgroundColor: .primary) {
                         if !currentName.isEmpty {
                             withAnimation {
                                 profileName = currentName
                                 isEditingName = false
                             }
                         }
-                    } label: {
-                        Text("Done")
-                            .padding()
-                            .frame(maxWidth: 200)
-                            .foregroundColor(.white)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(.black)
-                            )
                     }
+                    .foregroundColor(.white)
+//                    Button {
+//                        isEditingName = false
+//                    } label: {
+//                        Text("Cancel")
+//                            .padding()
+//                            .frame(maxWidth: 200)
+//                            .foregroundColor(.red)
+//                            .background(
+//                                RoundedRectangle(cornerRadius: 10)
+//                                    .fill(.gray.opacity(0.1))
+//                            )
+//                    }
+//                    Button {
+//                        
+//                    } label: {
+//                        Text("Done")
+//                            .padding()
+//                            .frame(maxWidth: 200)
+//                            .foregroundColor(.white)
+//                            .background(
+//                                RoundedRectangle(cornerRadius: 10)
+//                                    .fill(.black)
+//                            )
+//                    }
                 }
             }
             
@@ -113,50 +128,66 @@ struct UserProfileView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(.gray.opacity(0.15))
                 )
-                Button{
-                    withAnimation {
-                        profileImage = selectedImage
-                        isEditingImage = false
+                UserProfileEditButton(title: "Done", backgroundColor: .primary) {
+                    if !currentName.isEmpty {
+                        withAnimation {
+                            profileName = currentName
+                            isEditingName = false
+                        }
                     }
-                } label: {
-                    Text("Done")
-                        .padding()
-                        .frame(maxWidth: 200)
-                        .foregroundColor(.white)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(.black)
-                        )
                 }
+                .foregroundColor(.white)
+//                
+//                Button{
+//                    withAnimation {
+//                        profileImage = selectedImage
+//                        isEditingImage = false
+//                    }
+//                } label: {
+//                    Text("Done")
+//                        .padding()
+//                        .frame(maxWidth: 200)
+//                        .foregroundColor(.white)
+//                        .background(
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .fill(.black)
+//                        )
+//                }
                 .padding(.bottom)
             }
             
             VStack{
                 FitMeProfileButton(title: "Edit Name", image: "square.and.pencil"){
-                    isEditingName = true
+                    withAnimation {
+                        isEditingName = true
+                        isEditingImage = false
+                    }
                 }
-                
                 FitMeProfileButton(title: "Edit Image", image: "square.and.pencil"){
-                    isEditingImage = true
-                }
-            }
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.gray.opacity(0.15))
-            )
-            
-            VStack{
-                FitMeProfileButton(title: "Contact Us", image: "envelope"){
-                    print("contact")
+                    withAnimation {
+                        isEditingName = false
+                        isEditingImage = true
+                    }
                 }
                 
-                FitMeProfileButton(title: "Privacy Policy", image: "document"){
-                    print("privacy")
-                }
-                FitMeProfileButton(title: "Terms of Services", image: "document.badge.arrow.up"){
-                    print("terms")
-                }
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.gray.opacity(0.15))
+                )
                 
+                VStack{
+                    FitMeProfileButton(title: "Contact Us", image: "envelope"){
+                        print("contact")
+                    }
+                    
+                    FitMeProfileButton(title: "Privacy Policy", image: "document"){
+                        print("privacy")
+                    }
+                    FitMeProfileButton(title: "Terms of Services", image: "document.badge.arrow.up"){
+                        print("terms")
+                    }
+                    
+                }
             }
             .background(
                 RoundedRectangle(cornerRadius: 10)
