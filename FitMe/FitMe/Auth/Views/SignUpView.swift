@@ -12,17 +12,9 @@ import FirebaseAuth
 struct SignUpView: View {
     @State private var email = ""
     @State private var password = ""
-    @State private var userIsLoggedIn = false
+    //@State private var userIsLoggedIn = false
     
     var body: some View {
-        if userIsLoggedIn {
-            ListView()
-        } else {
-            signup
-        }
-    }
-    
-    var signup: some View {
         ZStack{
             Color.blue
             
@@ -89,15 +81,17 @@ struct SignUpView: View {
             }
             .frame(width: 350)
             .onAppear {
-                Auth.auth().addStateDidChangeListener { auth, user in
-                    if user != nil {
-                        userIsLoggedIn.toggle()
-                    }
-                }
+//                Auth.auth().addStateDidChangeListener { auth, user in
+//                    if user != nil {
+//                        userIsLoggedIn.toggle()
+//                    }
+//                }
             }
         }
         .ignoresSafeArea()
+
     }
+    
     
     func login() {
         Auth.auth().signIn(withEmail: email, password: password) { Result, error in
