@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyC4jfdW3gTF8sm-clsXxthHtgtzqFTSMj0</string>
+	<string>AIzaSyAlxRHNqQOPcsmmXS2c804bsvkrn_BCbRk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>604523084177</string>
+	<string>560323598715</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.Dakshina.FitMe</string>
 	<key>PROJECT_ID</key>
-	<string>fitme-e3e5b</string>
+	<string>fitmeios</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fitme-e3e5b.firebasestorage.app</string>
+	<string>fitmeios.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:604523084177:ios:20aafc39e78a548aa90230</string>
+	<string>1:560323598715:ios:a0d453bde6036afd77c5de</string>
 </dict>
 </plist>

@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseAuth
 
 struct SignUpView: View {
     @State private var email = ""
@@ -53,7 +55,7 @@ struct SignUpView: View {
                     .foregroundColor(.white)
                 
                 Button {
-                    //SignUp
+                    register()
                 } label: {
                     Text("Sign Up")
                         .bold()
@@ -67,7 +69,7 @@ struct SignUpView: View {
                 .padding(.top)
                 .offset(y: 100)
                 Button {
-                    //Login
+                    login()
                 } label: {
                     Text("Already haave an account? Login")
                         .bold()
@@ -79,6 +81,22 @@ struct SignUpView: View {
             .frame(width: 350)
         }
         .ignoresSafeArea()
+    }
+    
+    func login() {
+        Auth.auth().signIn(withEmail: email, password: password) { Result, error in
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+        }
+    }
+    
+    func register() {
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+        }
     }
 }
 

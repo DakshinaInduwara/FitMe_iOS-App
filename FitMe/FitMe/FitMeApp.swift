@@ -8,6 +8,8 @@
 import SwiftUI
 import UserNotifications // Import UserNotifications
 import FirebaseCore
+import Firebase
+import FirebaseAuth
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
@@ -26,6 +28,8 @@ struct FitMeApp: App {
     init() {
         requestNotificationPermission()
         // Request notification permission on app launch
+        
+        FirebaseApp.configure()
     }
 
     var body: some Scene {

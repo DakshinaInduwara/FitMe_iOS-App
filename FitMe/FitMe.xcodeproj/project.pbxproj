@@ -16,6 +16,9 @@
 		FB8A583E2CE1E00E00DDD32E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FB8A583D2CE1E00E00DDD32E /* FirebaseFirestore */; };
 		FB8A58402CE1E00E00DDD32E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = FB8A583F2CE1E00E00DDD32E /* FirebaseMessaging */; };
 		FB8A58422CE1E00E00DDD32E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FB8A58412CE1E00E00DDD32E /* FirebaseStorage */; };
+		FBB24E982CE31E6B002DC473 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = FBB24E972CE31E6B002DC473 /* FirebaseAppCheck */; };
+		FBB24E9A2CE31E6B002DC473 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = FBB24E992CE31E6B002DC473 /* FirebaseFunctions */; };
+		FBB24E9C2CE31E6B002DC473 /* FirebaseInstallations in Frameworks */ = {isa = PBXBuildFile; productRef = FBB24E9B2CE31E6B002DC473 /* FirebaseInstallations */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,20 @@
 			);
 			target = FBF8461A2CD133BC00262876 /* FitMe */;
 		};
+		FBB24EA12CE31EB3002DC473 /* Exceptions for "FitMe" folder in "FitMeTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"GoogleService-Info.plist",
+			);
+			target = FBF8462A2CD133BE00262876 /* FitMeTests */;
+		};
+		FBB24EA22CE31EB3002DC473 /* Exceptions for "FitMe" folder in "FitMeUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"GoogleService-Info.plist",
+			);
+			target = FBF846342CD133BE00262876 /* FitMeUITests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -56,6 +73,8 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				FB6A87C82CD3D5DD008DDD6F /* Exceptions for "FitMe" folder in "FitMe" target */,
+				FBB24EA12CE31EB3002DC473 /* Exceptions for "FitMe" folder in "FitMeTests" target */,
+				FBB24EA22CE31EB3002DC473 /* Exceptions for "FitMe" folder in "FitMeUITests" target */,
 			);
 			path = FitMe;
 			sourceTree = "<group>";
@@ -80,11 +99,14 @@
 				FB8A58402CE1E00E00DDD32E /* FirebaseMessaging in Frameworks */,
 				FB8A583C2CE1E00E00DDD32E /* FirebaseDatabase in Frameworks */,
 				FB843EED2CE2A7AF009DF6E5 /* FirebasePerformance in Frameworks */,
+				FBB24E9C2CE31E6B002DC473 /* FirebaseInstallations in Frameworks */,
 				FB843EE72CE2A7AF009DF6E5 /* FirebaseAnalytics in Frameworks */,
 				FB843EEB2CE2A7AF009DF6E5 /* FirebaseInAppMessaging-Beta in Frameworks */,
 				FB8A583A2CE1E00E00DDD32E /* FirebaseAuth in Frameworks */,
 				FB843EE92CE2A7AF009DF6E5 /* FirebaseCore in Frameworks */,
 				FB8A58422CE1E00E00DDD32E /* FirebaseStorage in Frameworks */,
+				FBB24E982CE31E6B002DC473 /* FirebaseAppCheck in Frameworks */,
+				FBB24E9A2CE31E6B002DC473 /* FirebaseFunctions in Frameworks */,
 				FB8A583E2CE1E00E00DDD32E /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -155,6 +177,9 @@
 				FB843EE82CE2A7AF009DF6E5 /* FirebaseCore */,
 				FB843EEA2CE2A7AF009DF6E5 /* FirebaseInAppMessaging-Beta */,
 				FB843EEC2CE2A7AF009DF6E5 /* FirebasePerformance */,
+				FBB24E972CE31E6B002DC473 /* FirebaseAppCheck */,
+				FBB24E992CE31E6B002DC473 /* FirebaseFunctions */,
+				FBB24E9B2CE31E6B002DC473 /* FirebaseInstallations */,
 			);
 			productName = FitMe;
 			productReference = FBF8461B2CD133BC00262876 /* FitMe.app */;
@@ -670,6 +695,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		FBB24E972CE31E6B002DC473 /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		FBB24E992CE31E6B002DC473 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
+		FBB24E9B2CE31E6B002DC473 /* FirebaseInstallations */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB8A58382CE1E00E00DDD32E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseInstallations;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

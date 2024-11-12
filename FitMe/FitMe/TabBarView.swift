@@ -13,6 +13,12 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $selectedTab){
+            SignUpView()
+                .tag("SignUp")
+                .tabItem{
+                    Image(systemName:"home.circle.fill")
+                    Text("SignUp")
+                }
             HomeView()
                 .tag("Home")
                 .tabItem{

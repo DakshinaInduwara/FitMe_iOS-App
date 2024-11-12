@@ -6,3 +6,19 @@
 //
 
 import Foundation
+import SwiftUI
+import Firebase
+import FirebaseAuth
+
+struct DatabaseManager: App {
+    
+    init () {
+        FirebaseApp.configure()
+    }
+    
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
