@@ -10,4 +10,5 @@ import SwiftUI
 struct TestUsers: Identifiable {
     var id: String
     var name: String
+    var password: String
 }

@@ -22,7 +22,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct FitMeApp: App {
     @StateObject var healthKit = Health()
-    
+    @StateObject private var appState = AppState()
     
     
     init() {
@@ -36,6 +36,14 @@ struct FitMeApp: App {
         WindowGroup {
             TabBarView()
                 .environmentObject(healthKit)
+//            if appState.isUserLoggedIn {
+//                            TabBarView()
+//                                .environmentObject(appState)
+//                                .environmentObject(healthKit)
+//                        } else {
+//                            SignInView()
+//                                .environmentObject(appState)
+//                        }
         }
     }
 
