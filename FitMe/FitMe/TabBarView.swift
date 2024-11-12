@@ -19,7 +19,7 @@ struct TabBarView: View {
                     Image(systemName:"house")
                     Text("Home")
                 }
-                .environmentObject(healthKit)
+                //.environmentObject(healthKit)
             
             ChartsView()
                 .tag("Charts")

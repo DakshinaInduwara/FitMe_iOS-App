@@ -23,7 +23,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct FitMeApp: App {
     @StateObject var healthKit = Health()
     @StateObject private var appState = AppState()
-    
+    @AppStorage("isUserLoggedIn") private var isUserLoggedIn: Bool = false
     
     init() {
         requestNotificationPermission()
@@ -33,17 +33,15 @@ struct FitMeApp: App {
     }
 
     var body: some Scene {
+        
         WindowGroup {
-            TabBarView()
-                .environmentObject(healthKit)
-//            if appState.isUserLoggedIn {
-//                            TabBarView()
-//                                .environmentObject(appState)
-//                                .environmentObject(healthKit)
-//                        } else {
-//                            SignInView()
-//                                .environmentObject(appState)
-//                        }
+//            TabBarView()
+//                .environmentObject(healthKit)
+            if isUserLoggedIn {
+                TabBarView() // Show HomeView after successful login
+                    } else {
+                        SignInView() // Show SignInView if not logged in
+                    }
         }
     }
 

@@ -1,89 +1,80 @@
 import SwiftUI
-import FirebaseAuth
 
 struct SignInView: View {
     @State private var email = ""
     @State private var password = ""
-    @State private var loginError: String?
-    @EnvironmentObject var appState: AppState  // Use environment object to set login state
-    
+    @State private var errorMessage: String?
+
+    @AppStorage("isUserLoggedIn") private var isUserLoggedIn: Bool = false
+    @AppStorage("storedEmail") private var storedEmail: String = ""
+    @AppStorage("storedPassword") private var storedPassword: String = ""
+
     var body: some View {
-        ZStack {
-            Color.blue.ignoresSafeArea()
-            
-            RoundedRectangle(cornerRadius: 30, style: .continuous)
-                .foregroundStyle(.linearGradient(colors: [.blue, .white], startPoint: .topLeading, endPoint: .bottomTrailing))
-                .frame(width: 1000, height: 400)
-                .rotationEffect(.degrees(135))
-                .offset(y: -350)
-            
+        NavigationView {  // Add NavigationView here
             VStack(spacing: 20) {
-                Text("Welcome Back")
-                    .foregroundColor(.blue)
-                    .font(.system(size: 50, weight: .bold, design: .rounded))
-                    .offset(x: -36, y: -100)
+                Text("Sign In")
+                    .font(.largeTitle)
+                    .bold()
                 
                 TextField("Email", text: $email)
-                    .foregroundColor(.white)
-                    .textFieldStyle(.plain)
-                    .placeholder(when: email.isEmpty) {
-                        Text("Email")
-                            .foregroundColor(.black)
-                            .bold()
-                    }
-                
-                Rectangle()
-                    .frame(width: 350, height: 1)
-                    .foregroundColor(.white)
+                    .keyboardType(.emailAddress)
+                    .autocapitalization(.none)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(10)
                 
                 SecureField("Password", text: $password)
-                    .foregroundColor(.white)
-                    .textFieldStyle(.plain)
-                    .placeholder(when: password.isEmpty) {
-                        Text("Password")
-                            .foregroundColor(.black)
-                            .bold()
-                    }
-                
-                Rectangle()
-                    .frame(width: 350, height: 1)
-                    .foregroundColor(.white)
-                
-                Button {
-                    login()
-                } label: {
-                    Text("Log In")
-                        .bold()
-                        .frame(width: 200, height: 40)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .fill(.linearGradient(colors: [.white, .white], startPoint: .top, endPoint: .bottomTrailing))
-                        )
-                        .foregroundColor(.blue)
-                }
-                .padding(.top)
-                .offset(y: 100)
-                
-                if let error = loginError {
-                    Text(error)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(10)
+
+                if let errorMessage = errorMessage {
+                    Text(errorMessage)
                         .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
+                }
+
+                Button(action: signIn) {
+                    Text("Sign In")
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+
+                NavigationLink(destination: SignUpView()) {
+                    Text("Don't have an account? Sign Up")
+                        .foregroundColor(.blue)
                         .bold()
-                        .padding(.top)
-                        .offset(y: 110)
                 }
             }
-            .frame(width: 350)
+            .padding()
+            .navigationBarHidden(true) // Hide the default navigation bar if needed
         }
     }
-    
-    func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if let error = error {
-                loginError = error.localizedDescription
-            } else {
-                // Successful login, update the app state to indicate user is logged in
-                appState.isUserLoggedIn = true
-            }
+
+    private func signIn() {
+        guard isValidEmail(email) else {
+            errorMessage = "Please enter a valid email."
+            return
         }
+
+        guard password.count >= 6 else {
+            errorMessage = "Password must be at least 6 characters long."
+            return
+        }
+
+        if email == storedEmail && password == storedPassword {
+            errorMessage = nil
+            isUserLoggedIn = true // Sign in the user
+        } else {
+            errorMessage = "Invalid email or password."
+        }
+    }
+
+    private func isValidEmail(_ email: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
     }
 }

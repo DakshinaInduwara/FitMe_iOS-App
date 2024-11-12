@@ -1,128 +1,80 @@
-//
-//  SignUpView.swift
-//  FitMe
-//
-//  Created by Gairuka Bandara on 2024-11-12.
-//
-
 import SwiftUI
-import Firebase
-import FirebaseAuth
 
 struct SignUpView: View {
     @State private var email = ""
     @State private var password = ""
-    //@State private var userIsLoggedIn = false
-    
+    @State private var confirmPassword = ""
+    @State private var errorMessage: String?
+
+    @AppStorage("storedEmail") private var storedEmail: String = ""
+    @AppStorage("storedPassword") private var storedPassword: String = ""
+    @AppStorage("isUserLoggedIn") private var isUserLoggedIn: Bool = false
+
     var body: some View {
-        ZStack{
-            Color.blue
+        VStack(spacing: 20) {
+            Text("Sign Up")
+                .font(.largeTitle)
+                .bold()
             
-            RoundedRectangle(cornerRadius: 30, style: .continuous)
-                .foregroundStyle(.linearGradient(colors: [.blue, .white], startPoint: .topLeading, endPoint: .bottomTrailing))
-                .frame(width: 1000, height: 400)
-                .rotationEffect(.degrees(135))
-                .offset(y: -350)
+            TextField("Email", text: $email)
+                .keyboardType(.emailAddress)
+                .autocapitalization(.none)
+                .padding()
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
             
-            VStack(spacing: 20){
-                Text("FitMe Fitness")
-                    .foregroundColor(.blue)
-                    .font(.system(size: 50, weight: .bold, design: .rounded))
-                    .offset(x: -36,y: -100)
-                
-                TextField("Email", text: $email)
-                    .foregroundColor(.white)
-                    .textFieldStyle(.plain)
-                    .placeholder(when: email.isEmpty) {
-                        Text("Email")
-                            .foregroundColor(.black)
-                            .bold()
-                    }
-                Rectangle()
-                    .frame(width: 350, height: 1)
-                    .foregroundColor(.white)
-                
-                SecureField("Password", text: $password)
-                    .foregroundColor(.white)
-                    .textFieldStyle(.plain)
-                    .placeholder(when: password.isEmpty) {
-                        Text("Password")
-                            .foregroundColor(.black)
-                            .bold()
-                    }
-                
-                Rectangle()
-                    .frame(width: 350, height: 1)
-                    .foregroundColor(.white)
-                
-                Button {
-                    register()
-                } label: {
-                    Text("Sign Up")
-                        .bold()
-                        .frame(width: 200, height: 40)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .fill(.linearGradient(colors: [.white, .white], startPoint: .top, endPoint: .bottomTrailing))
-                        )
-                        .foregroundColor(.blue)
-                }
-                .padding(.top)
-                .offset(y: 100)
-                Button {
-                    login()
-                } label: {
-                    Text("Already haave an account? Login")
-                        .bold()
-                        .foregroundColor(.white)
-                }
-                .padding(.top)
-                .offset(y: 110)
+            SecureField("Password", text: $password)
+                .padding()
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+            
+            SecureField("Confirm Password", text: $confirmPassword)
+                .padding()
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+
+            if let errorMessage = errorMessage {
+                Text(errorMessage)
+                    .foregroundColor(.red)
             }
-            .frame(width: 350)
-            .onAppear {
-//                Auth.auth().addStateDidChangeListener { auth, user in
-//                    if user != nil {
-//                        userIsLoggedIn.toggle()
-//                    }
-//                }
+
+            Button(action: signUp) {
+                Text("Sign Up")
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .cornerRadius(10)
             }
         }
-        .ignoresSafeArea()
-
+        .padding()
     }
-    
-    
-    func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { Result, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            }
+
+    private func signUp() {
+        guard isValidEmail(email) else {
+            errorMessage = "Please enter a valid email."
+            return
         }
-    }
-    
-    func register() {
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            }
+
+        guard password == confirmPassword else {
+            errorMessage = "Passwords do not match."
+            return
         }
-    }
-}
 
-#Preview {
-    SignUpView()
-}
+        guard password.count >= 6 else {
+            errorMessage = "Password must be at least 6 characters."
+            return
+        }
 
-extension View {
-    func placeholder<Content : View>(
-        when shouldShow: Bool,
-        alignment: Alignment = .leading,
-        @ViewBuilder placeholder: () -> Content) -> some View {
-            ZStack(alignment: alignment) {
-                placeholder().opacity(shouldShow ? 1 : 0)
-                self
-            }
+        // Save the email and password in AppStorage
+        storedEmail = email
+        storedPassword = password
+        isUserLoggedIn = true // Set login state to true
+        errorMessage = nil
     }
-        
+
+    private func isValidEmail(_ email: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
+    }
 }
