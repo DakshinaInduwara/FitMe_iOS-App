@@ -12,8 +12,17 @@ import FirebaseAuth
 struct SignUpView: View {
     @State private var email = ""
     @State private var password = ""
+    @State private var userIsLoggedIn = false
     
     var body: some View {
+        if userIsLoggedIn {
+            ListView()
+        } else {
+            signup
+        }
+    }
+    
+    var signup: some View {
         ZStack{
             Color.blue
             
@@ -79,6 +88,13 @@ struct SignUpView: View {
                 .offset(y: 110)
             }
             .frame(width: 350)
+            .onAppear {
+                Auth.auth().addStateDidChangeListener { auth, user in
+                    if user != nil {
+                        userIsLoggedIn.toggle()
+                    }
+                }
+            }
         }
         .ignoresSafeArea()
     }
