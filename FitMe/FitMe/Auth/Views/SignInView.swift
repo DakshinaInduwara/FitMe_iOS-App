@@ -12,6 +12,11 @@ struct SignInView: View {
     var body: some View {
         NavigationView {  // Add NavigationView here
             VStack(spacing: 20) {
+                Text("FitMe Fiteness")
+                    .font(.largeTitle)
+                    .bold()
+                    .italic()
+                    .foregroundColor(.blue)
                 Text("Sign In")
                     .font(.largeTitle)
                     .bold()

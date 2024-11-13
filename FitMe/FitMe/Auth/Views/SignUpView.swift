@@ -12,6 +12,11 @@ struct SignUpView: View {
 
     var body: some View {
         VStack(spacing: 20) {
+            Text("FitMe Fiteness")
+                .font(.largeTitle)
+                .bold()
+                .italic()
+                .foregroundColor(.blue)
             Text("Sign Up")
                 .font(.largeTitle)
                 .bold()

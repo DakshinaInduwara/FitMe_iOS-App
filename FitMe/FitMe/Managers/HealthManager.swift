@@ -217,6 +217,30 @@ class HealthManager{
         healthStore.execute(query)
     }
     
+    func checkGoalsAndNotify() {
+        let stepGoal = Double(UserDefaults.standard.string(forKey: "stepGoal") ?? "10000") ?? 10000
+        let calorieGoal = Double(UserDefaults.standard.string(forKey: "calorieGoal") ?? "500") ?? 500
+
+        fetchTodaySteps { result in
+            switch result {
+            case .success(let activity):
+                let steps = Double(activity.amount) ?? 0
+                scheduleNotification(forGoal: "Step", current: steps, goal: stepGoal)
+            case .failure(let error):
+                print("Error fetching steps: \(error.localizedDescription)")
+            }
+        }
+
+        fetchTodayCaloriesBurned { result in
+            switch result {
+            case .success(let calories):
+                scheduleNotification(forGoal: "Calorie", current: calories, goal: calorieGoal)
+            case .failure(let error):
+                print("Error fetching calories: \(error.localizedDescription)")
+            }
+        }
+    }
+    
 }
 
 //ChartView Data
@@ -262,4 +286,5 @@ extension HealthManager {
             healthStore.execute(query)
         }
     }
+
 }
