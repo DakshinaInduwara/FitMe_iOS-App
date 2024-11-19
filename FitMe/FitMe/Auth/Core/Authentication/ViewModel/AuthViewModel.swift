@@ -16,7 +16,13 @@ class AuthViewModel: ObservableObject {
     }
 
     func signIn(withEmail email: String, password: String) async throws {
-
+        do {
+            let result = try await Auth.auth().signIn(withEmail: email, password: password)
+            self.userSession = result.user
+            await fetchUser()
+        } catch {
+            print("Error signing in: \(error.localizedDescription)")
+        }
     }
 
     func createUser(withEmail email: String, password: String, fullname: String) async throws {
@@ -27,13 +33,20 @@ class AuthViewModel: ObservableObject {
             let encodedUser = try Firestore.Encoder().encode(user)
             //try await Firestore.firestore().collection("users").document(result.user.uid).setData(from: encodedUser)
             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
+            await fetchUser()
         } catch {
             print("DEBUG: Failed to create user: \(error.localizedDescription)")
         }
     }
 
     func signOut() {
-        
+        do {
+            try Auth.auth().signOut()
+            self.userSession = nil
+            self.currentUser = nil
+        } catch {
+            print("DEBUG: Failed to sign out: \(error.localizedDescription)")
+        }
     }
 
     func deleteAcount() {
