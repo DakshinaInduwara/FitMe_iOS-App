@@ -24,8 +24,23 @@ struct RagistrationView: View {
 
                         InputView(text: $password, title: "Password", placeholder: "Enter your password", isSecureField: true)
 
-                        InputView(text: $confirmPassword, title: "Confirm Password", placeholder: "Confirm your password", isSecureField: true)
-                    }
+                        ZStack(alignment: .trailing) {
+                            InputView(text: $confirmPassword, title: "Confirm Password", placeholder: "Confirm your password", isSecureField: true)
+
+                            if !password.isEmpty && !confirmPassword.isEmpty {
+                                if password == confirmPassword {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .imageScale(.large)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color(.systemGreen))
+                                } else {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .imageScale(.large)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color(.systemRed))
+                                }
+                        }
+                     }
                     .padding(.horizontal)
                     .padding(.top, 12)
 
@@ -59,6 +74,17 @@ struct RagistrationView: View {
                         .font(system(size: 14))
                     }
          }
+    }
+}
+
+extension RegitrationView: AuthenticationFormProtocol {
+    var fromIsValid: Bool {
+        return !email.isEmpty
+        && email.contains("@")
+        && !password.isEmpty
+        && password.count > 5
+        && confirmPassword == password
+        && !fullname.isEmpty
     }
 }
 

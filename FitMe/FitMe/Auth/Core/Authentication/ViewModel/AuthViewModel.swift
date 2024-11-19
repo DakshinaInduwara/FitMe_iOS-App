@@ -2,6 +2,10 @@ import Foundation
 import Firebase
 import FirebaaseFirestoreSwift
 
+protocol AuthenticationFormProtocol {
+    var fromIsValid: Bool { get }
+}
+
 @MainActor
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
