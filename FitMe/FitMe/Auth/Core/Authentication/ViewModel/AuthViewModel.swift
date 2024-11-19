@@ -2,12 +2,17 @@ import Foundation
 import Firebase
 import FirebaaseFirestoreSwift
 
+@MainActor
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
 
     init () {
+        self.userSession = Auth.auth().currentUser
 
+        Task {
+            await fetchUser()
+        }
     }
 
     func signIn(withEmail email: String, password: String) async throws {
@@ -36,6 +41,10 @@ class AuthViewModel: ObservableObject {
     }
 
      func fetchUser() async {
-        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else { return }
+        self.currentUser = try? snapshot.data(as: User.self)
+
+        print("DEBUG: Current user is \(self.currentUser)")
     }
 }
